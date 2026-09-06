@@ -38,74 +38,8 @@ Anthropic API)
 
 ---
 
-## 3. How to install Node.js
 
-Download and install Node.js (version 18 or newer) from
-[https://nodejs.org](https://nodejs.org). This also installs `npm`,
-which we use to install dependencies.
-
-Check it worked by running:
-
-```bash
-node -v
-npm -v
-```
-
----
-
-## 4. How to install dependencies
-
-From the project's root folder, run:
-
-```bash
-npm install
-```
-
-This reads `package.json` and downloads everything the project needs
-(Express, Multer, SQLite, Tesseract.js, etc.) into a `node_modules`
-folder.
-
----
-
-## 5. How to configure `.env`
-
-1. Copy the example file:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Open `.env` in a text editor and fill in your own values:
-
-   ```
-   PORT=3000
-   AI_API_KEY=your_api_key_here
-   AI_MODEL=your_model_here
-   DONATION_LINK=
-   DAILY_UPLOAD_LIMIT=4
-   MAX_FILE_SIZE_MB=10
-   ```
-
-3. **Never commit your real `.env` file to GitHub.** It's already
-   listed in `.gitignore` so Git will ignore it automatically.
-
----
-
-## 6. How to start the server
-
-```bash
-npm start
-```
-
-Then open your browser to:
-
-```
-http://localhost:3000
-```
-
----
-
-## 7. How the project works (folder overview)
+## 3. How the project works (folder overview)
 
 ```
 studyquiz/
@@ -141,45 +75,6 @@ Quiz is saved to SQLite and played entirely in the browser
 Result is saved back to SQLite
 ```
 
----
 
-## 8. How to change the AI provider
-
-All AI logic lives in `server/services/aiGenerator.js`. It currently
-calls the Anthropic API (`https://api.anthropic.com/v1/messages`).
-
-To use a different provider:
-
-1. Update the `fetch()` call's URL, headers, and request body to match
-   your chosen provider's API.
-2. Keep the same strict prompt instructions (only use the uploaded
-   material, return valid JSON, etc.) so the quiz stays reliable.
-3. Update `AI_MODEL` in your `.env` file to match the new provider's
-   model name.
-
-The rest of the app (routes, database, frontend) doesn't need to
-change, since it only cares about the final validated quiz JSON.
-
----
-
-## 9. How to configure donations
-
-StudyQuiz has no paid features — donations are entirely optional.
-
-1. Get a link from any donation platform you like (Ko-fi, PayPal,
-   GCash, Buy Me a Coffee, etc.).
-2. Paste it into `.env` as `DONATION_LINK=https://your-link-here`.
-3. If you leave `DONATION_LINK` empty, the donation buttons on the
-   About page will simply show "Donation support coming soon ❤️"
-   instead of a broken link.
-
----
-
-## Future ideas (not built yet)
-
-This MVP focuses on the core flow: upload → extract → generate →
-play → result. The project is structured so these could be added
-later without a rewrite: user accounts, quiz history, leaderboards,
-multiplayer, difficulty selection, XP/achievements, and more.
 
 Happy studying! 📚🎮
