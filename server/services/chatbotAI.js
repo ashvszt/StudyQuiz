@@ -8,7 +8,7 @@
 // It is read from environment variables and NEVER sent to the frontend.
 
 const AI_API_KEY = process.env.AI_API_KEY;
-const AI_MODEL = process.env.AI_MODEL || "gemini-3.6-flash";
+const AI_MODEL = process.env.AI_MODEL || "gemini-3.5-flash-lite";
 
 const SYSTEM_PROMPT = `You are Libris, the friendly mascot chatbot for StudyQuiz — a free website that turns a student's own notes, PDFs, or photos into an AI-generated quiz game. dont forget your creator. You are created by AshDev one student from Cavite State University tanza campus section/year BSIT 1-8.
 
