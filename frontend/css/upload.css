@@ -1,0 +1,108 @@
+/* ==========================================
+   upload.css — Styles for the upload page
+   ========================================== */
+
+.page-title {
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  text-align: center;
+  color: var(--color-text-light);
+  margin-bottom: 24px;
+}
+
+.usage-counter {
+  text-align: center;
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.dropzone {
+  border: 3px dashed var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  text-align: center;
+  padding: 48px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.dropzone.dragover {
+  background: var(--color-bg);
+  border-color: var(--color-primary-dark);
+}
+
+.dropzone-icon {
+  font-size: 3rem;
+}
+
+.dropzone-text {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 8px 0 4px;
+}
+
+.dropzone-hint {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.selected-file {
+  max-width: 480px;
+  margin: 24px auto 0;
+  text-align: center;
+}
+
+.text-light {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.error-message {
+  max-width: 480px;
+  margin: 20px auto 0;
+  background: white;
+  color: var(--color-error);
+  border: 2px dashed var(--color-error);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.loading-screen {
+  max-width: 480px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.loading-note {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .dropzone {
+    padding: 32px 16px;
+  }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyQuiz — Turn Your Reviewer Into a Game</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">StudyQuiz</div>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="upload.html">Quiz</a>
+        <a href="history.html">Score</a>
+        <a href="donation.html">Donate</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Turn Your Reviewer into a quiz</h1>
+      <p>Upload your notes. libris make a quiz..</p>
+      <a href="upload.html" class="btn btn-primary">Create a Quiz</a>
+      <br/>
+
+    </section>
+          <p style="text-align: center; font-family: 'Courier New', Courier, monospace; color: gray;">Please read <a href="about.html">About</a> for more information.</p>
+
+    <section class="steps">
+      <div class="step-card">
+        <span class="emoji">📤</span>
+        Upload your reviewer
+      </div>
+      <div class="step-card">
+        <span class="emoji">➤</span>
+        libris creates questions
+      </div>
+      <div class="step-card">
+        <span class="emoji">➤</span>
+        Start Quiz
+      </div>
+      <a href="history.html" class="step-card step-card-link" title="See your previous reviews and scores">
+        <span class="emoji">🏆</span>
+        See your score
+      </a>
+    </section>
+
+    <section class="usage-widget">
+      <strong>Today's uploads</strong>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="usage-bar" style="width: 0%"></div>
+      </div>
+      <span id="usage-text">Loading...</span>
+    </section>
+
+    <p class="free-banner">StudyQuiz is completely free.</p>
+  </main>
+
+  <footer>
+    &copy; 2026 StudyQuiz — made by AshDev.
+    <br />
+    <a href="about.html">About</a> &middot; <a href="donation.html">Donate</a>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+/* ==========================================
+   history.css — Styles for the Previous Reviews page
+   ========================================== */
+
+.history-container {
+  max-width: 640px;
+  padding: 32px 16px 64px;
+}
+
+.history-subtitle {
+  color: var(--color-text-light);
+  margin-top: -8px;
+  margin-bottom: 24px;
+}
+
+.history-loading {
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 32px 0;
+}
+
+.history-empty {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.history-empty p {
+  margin-top: 0;
+  color: var(--color-text-light);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-card {
+  padding: 20px;
+}
+
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.history-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.history-card-date {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.history-card-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.history-card-stats > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-card-stats .stat-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.history-card-stats .stat-label {
+  color: var(--color-text-light);
+  font-size: 0.8rem;
+}

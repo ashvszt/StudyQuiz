@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Result — StudyQuiz</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/result.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+</head>
+<body>
+
+  <main class="container result-container">
+    <div class="card result-card">
+      <h1 class="result-heading">QUIZ COMPLETE!</h1>
+
+      <p class="result-label">Your Score</p>
+      <p id="result-score" class="result-score">0 / 0</p>
+
+      <div class="result-stats">
+        <div>
+          <span class="stat-value" id="result-correct">0</span>
+          <span class="stat-label">Correct</span>
+        </div>
+        <div>
+          <span class="stat-value" id="result-wrong">0</span>
+          <span class="stat-label">Wrong</span>
+        </div>
+        <div>
+          <span class="stat-value" id="result-accuracy">0%</span>
+          <span class="stat-label">Accuracy</span>
+        </div>
+      </div>
+
+      <p id="result-streak" class="result-streak">Best Streak: 0</p>
+      <p id="result-previous" class="result-previous" hidden></p>
+      <p id="result-message" class="result-message">Great job!</p>
+
+      <div class="result-buttons">
+        <button id="play-again-btn" class="btn btn-primary btn-block">Play Again</button>
+        <a href="upload.html" class="btn btn-secondary btn-block">New Reviewer</a>
+        <a href="history.html" class="btn btn-secondary btn-block">Previous Reviews</a>
+        <a href="index.html" class="btn btn-secondary btn-block">Home</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/result.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

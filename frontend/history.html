@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Previous Reviews — StudyQuiz</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/history.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">StudyQuiz</div>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="upload.html">Quiz</a>
+        <a href="history.html">Score</a>
+        <a href="donation.html">Donate</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container history-container">
+    <h1>Previous Reviews</h1>
+    <p class="history-subtitle">Every quiz you've completed, with your score and accuracy.</p>
+
+    <div id="history-loading" class="history-loading">Loading your history...</div>
+
+    <div id="history-empty" class="history-empty card" hidden>
+      <p>You haven't completed any quizzes yet.</p>
+      <a href="upload.html" class="btn btn-primary">Start a Review</a>
+    </div>
+
+    <div id="history-list" class="history-list"></div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

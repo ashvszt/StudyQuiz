@@ -1,0 +1,73 @@
+/* ==========================================
+   result.css — Styles for the result page
+   ========================================== */
+
+.result-container {
+  max-width: 480px;
+  padding-top: 48px;
+}
+
+.result-card {
+  text-align: center;
+}
+
+.result-heading {
+  margin-top: 0;
+}
+
+.result-label {
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.result-score {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0 0 20px;
+}
+
+.result-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.result-stats > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.stat-label {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+}
+
+.result-streak {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 16px;
+}
+
+.result-previous {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin: -8px 0 16px;
+}
+
+.result-message {
+  color: var(--color-text-light);
+  margin-bottom: 28px;
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

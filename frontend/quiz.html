@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — StudyQuiz</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/quiz.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+</head>
+<body>
+
+  <main class="container quiz-container">
+
+    <div id="quiz-loading" class="quiz-loading">
+      <div class="spinner"></div>
+      <p>Loading your quiz...</p>
+    </div>
+
+    <div id="quiz-error" class="error-message" hidden></div>
+
+    <div id="quiz-game" hidden>
+      <div class="quiz-header">
+        <h1 id="quiz-title">Quiz</h1>
+        <div class="quiz-stats">
+          <span id="quiz-score">Score: 0</span>
+          <span id="quiz-streak">Streak: 0</span>
+        </div>
+      </div>
+
+      <div class="progress-info">
+        <span id="question-counter">Question 1 / 20</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="quiz-progress-bar" style="width: 5%"></div>
+        </div>
+      </div>
+
+      <div class="card question-card">
+        <p id="question-text" class="question-text">Loading question...</p>
+        <div id="choices-list" class="choices-list"></div>
+      </div>
+
+      <div id="feedback-panel" class="feedback-panel" hidden>
+        <p id="feedback-result" class="feedback-result"></p>
+        <p id="feedback-points" class="feedback-points"></p>
+        <p class="feedback-label">Explanation:</p>
+        <p id="feedback-explanation" class="feedback-explanation"></p>
+        <button id="next-btn" class="btn btn-primary btn-block">Next Question</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

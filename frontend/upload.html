@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create a Quiz — StudyQuiz</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/upload.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">StudyQuiz</div>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="upload.html">Quiz</a>
+        <a href="history.html">Score</a>
+        <a href="donation.html">Donate</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1 class="page-title">Upload Your Reviewer</h1>
+    <p class="page-subtitle">PDF or image — we'll turn it into a quiz.</p>
+
+    <div id="usage-counter" class="usage-counter">Daily uploads: -- / --</div>
+
+    <div id="dropzone" class="dropzone">
+      <div class="dropzone-icon">📄</div>
+      <p class="dropzone-text">Drop your reviewer here</p>
+      <p class="dropzone-hint">PDF or image &middot; Maximum 10 MB</p>
+      <button id="choose-file-btn" class="btn btn-secondary" type="button">Choose File</button>
+      <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.webp" hidden />
+    </div>
+
+    <div id="selected-file" class="selected-file card" hidden>
+      <p><strong>Selected file:</strong></p>
+      <p id="selected-file-name">📄 filename.pdf</p>
+      <p id="selected-file-size" class="text-light">Size: 0 MB</p>
+      <button id="generate-btn" class="btn btn-primary btn-block">Generate Quiz</button>
+    </div>
+
+    <div id="error-message" class="error-message" hidden></div>
+
+    <div id="loading-screen" class="loading-screen" hidden>
+      <div class="spinner"></div>
+      <h2>Reading your reviewer...</h2>
+      <p id="loading-step">Extracting your notes...</p>
+      <p class="loading-note">Please wait, this can take a moment.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 StudyQuiz — Made by AshDev.
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

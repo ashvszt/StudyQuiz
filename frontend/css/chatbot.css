@@ -1,0 +1,176 @@
+/* ==========================================
+   chatbot.css — Styles for the Libris floating chat widget
+   ========================================== */
+
+#libris-launcher {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  border: 2px solid var(--color-primary-dark);
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+#libris-launcher:hover {
+  transform: scale(1.06);
+}
+
+#libris-panel {
+  position: fixed;
+  bottom: 92px;
+  right: 20px;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  height: 440px;
+  max-height: calc(100vh - 140px);
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+#libris-panel[hidden] {
+  display: none;
+}
+
+.libris-header {
+  background: var(--color-primary);
+  color: white;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+}
+
+.libris-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.libris-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+}
+
+#libris-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--color-bg);
+}
+
+.libris-msg {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.libris-msg.bot {
+  align-self: flex-start;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-bottom-left-radius: 4px;
+}
+
+.libris-msg.user {
+  align-self: flex-end;
+  background: var(--color-primary);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.libris-msg.typing {
+  align-self: flex-start;
+  background: white;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.libris-msg.error-msg {
+  align-self: flex-start;
+  background: white;
+  color: var(--color-error);
+  border: 1px dashed var(--color-error);
+}
+
+.libris-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-card);
+}
+
+#libris-input {
+  flex: 1;
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+}
+
+#libris-input:focus {
+  border-color: var(--color-primary);
+}
+
+#libris-send-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+#libris-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  #libris-panel {
+    right: 16px;
+    left: 16px;
+    width: auto;
+    bottom: 88px;
+  }
+
+  #libris-launcher {
+    right: 16px;
+    bottom: 16px;
+  }
+}

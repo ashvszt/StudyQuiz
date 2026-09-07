@@ -1,0 +1,220 @@
+/* ==========================================
+   quiz.css — Styles for the quiz gameplay page
+   ========================================== */
+
+.quiz-container {
+  max-width: 600px;
+  padding-top: 32px;
+}
+
+.quiz-loading {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.quiz-header h1 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.quiz-stats {
+  display: flex;
+  gap: 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-primary);
+}
+
+.progress-info {
+  margin-bottom: 20px;
+}
+
+.progress-info span {
+  font-weight: 600;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.question-card {
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.choices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid var(--color-border);
+  background: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.choice-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.choice-btn .choice-letter {
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* Correct/incorrect are told apart by fill + pattern, not color,
+   to stay true to the black & white halftone theme. */
+.choice-btn.correct {
+  border-color: var(--color-success);
+  background: var(--color-primary);
+  color: white;
+}
+
+.choice-btn.correct .choice-letter {
+  color: white;
+}
+
+.choice-btn.incorrect {
+  border-color: var(--color-error);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(17, 17, 17, 0.12),
+    rgba(17, 17, 17, 0.12) 3px,
+    transparent 3px,
+    transparent 9px
+  );
+  background-color: white;
+}
+
+.choice-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- Identification questions ---------- */
+.identification-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.identification-input {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid var(--color-border);
+  background: white;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.identification-input:focus {
+  border-color: var(--color-primary);
+}
+
+.identification-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.identification-input.correct {
+  border-color: var(--color-success);
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+}
+
+.identification-input.incorrect {
+  border-color: var(--color-error);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(17, 17, 17, 0.12),
+    rgba(17, 17, 17, 0.12) 3px,
+    transparent 3px,
+    transparent 9px
+  );
+  background-color: white;
+}
+
+.identification-submit-btn {
+  align-self: flex-end;
+}
+
+.feedback-panel {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.feedback-result {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.feedback-result.correct {
+  color: var(--color-success);
+}
+
+.feedback-result.incorrect {
+  color: var(--color-error);
+}
+
+.feedback-points {
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.feedback-label {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.feedback-explanation {
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+  .quiz-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
