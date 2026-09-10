@@ -1,10 +1,3 @@
-// ==========================================
-// confetti.js
-// ==========================================
-// A small, dependency-free confetti burst. Call launchConfetti() to
-// fire it — used on the result page when a student gets a perfect
-// score.
-
 function launchConfetti() {
   const canvas = document.createElement("canvas");
   canvas.style.position = "fixed";
@@ -31,7 +24,7 @@ function launchConfetti() {
   }));
 
   let frame = 0;
-  const maxFrames = 240; // ~4 seconds at 60fps
+  const maxFrames = 240;
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

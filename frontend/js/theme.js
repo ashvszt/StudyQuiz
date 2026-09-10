@@ -1,10 +1,3 @@
-// ==========================================
-// theme.js
-// ==========================================
-// Adds a "Settings" menu (with a dark mode toggle) into the navbar
-// on pages that have one. On pages without a navbar (quiz.html,
-// result.html), falls back to a small floating settings button.
-
 const THEME_STORAGE_KEY = "studyquiz_theme";
 
 function getSavedTheme() {
@@ -19,7 +12,7 @@ function saveTheme(theme) {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch (err) {
-    // Non-fatal — theme just won't persist across visits.
+   
   }
 }
 

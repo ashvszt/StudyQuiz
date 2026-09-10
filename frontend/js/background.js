@@ -1,13 +1,3 @@
-// ==========================================
-// background.js
-// ==========================================
-// A quiet, always-drifting dot background.
-// - On desktop (mouse): the highlight trail follows the cursor
-//   automatically on hover, no click needed.
-// - On phones/tablets (touch): press and hold, then move your
-//   finger to draw the trail — touch has no "hover" state, so it
-//   needs contact to know where you are.
-
 (function () {
   const PARTICLE_COUNT = 40;
   const HIGHLIGHT_RADIUS = 160;

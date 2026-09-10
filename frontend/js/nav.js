@@ -1,10 +1,3 @@
-// ==========================================
-// nav.js
-// ==========================================
-// Adds a hamburger menu toggle for the navbar on small screens.
-// Works automatically on any page that has a .navbar-links element —
-// no HTML changes needed. Does nothing on pages with no navbar.
-
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelector(".navbar-links");
   if (!links) return;
