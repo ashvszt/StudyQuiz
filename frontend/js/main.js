@@ -1,11 +1,4 @@
-// ==========================================
-// main.js
-// ==========================================
-// Shared logic used across every page: generating/reading the
-// anonymous user id, and loading the daily usage widget on the homepage.
 
-// Get (or create) this browser's anonymous user identifier.
-// We never ask for an account — just a random ID stored locally.
 function getUserId() {
   let userId = localStorage.getItem("userId");
   if (!userId) {
@@ -15,7 +8,6 @@ function getUserId() {
   return userId;
 }
 
-// Small helper so every fetch() call automatically includes our user id.
 async function apiFetch(url, options = {}) {
   const headers = Object.assign(
     { "X-User-Id": getUserId() },
@@ -24,10 +16,7 @@ async function apiFetch(url, options = {}) {
   return fetch(url, Object.assign({}, options, { headers }));
 }
 
-// Fetches this student's past completed quizzes (most recent first).
-// Used both by the "Previous Reviews" history page and to tell Libris
-// what the student's last score was. Returns [] on any failure so
-// callers never have to special-case network errors.
+
 async function fetchQuizHistory({ excludeQuizId, limit } = {}) {
   try {
     const params = new URLSearchParams();
@@ -43,8 +32,7 @@ async function fetchQuizHistory({ excludeQuizId, limit } = {}) {
   }
 }
 
-// Shapes a single history entry into the flat fields Libris expects
-// in window.StudyQuizContext, or {} if there isn't a previous review.
+
 function previousReviewContext(entry) {
   if (!entry) return {};
   return {
@@ -57,7 +45,7 @@ function previousReviewContext(entry) {
   };
 }
 
-// Load and display the "Today's uploads" widget, if it exists on the page.
+
 async function loadUsageWidget() {
   const bar = document.getElementById("usage-bar");
   const text = document.getElementById("usage-text");

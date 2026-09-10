@@ -1,8 +1,4 @@
-// ==========================================
-// history.js
-// ==========================================
-// Renders the "Previous Reviews" page: every quiz this student has
-// completed, most recent first, with their score and accuracy.
+///history//
 
 const historyLoading = document.getElementById("history-loading");
 const historyEmpty = document.getElementById("history-empty");
@@ -27,7 +23,7 @@ function renderHistoryCard(entry) {
 
   const accuracyText = entry.accuracy != null ? `${entry.accuracy}%` : "—";
 
-  card.innerHTML = `
+     card.innerHTML = `
     <div class="history-card-header">
       <h2 class="history-card-title">${entry.title}</h2>
       <span class="history-card-date">${formatDate(entry.completedAt)}</span>
@@ -51,9 +47,45 @@ function renderHistoryCard(entry) {
       </div>
     </div>
     <a class="btn btn-secondary btn-block" href="quiz.html?id=${encodeURIComponent(entry.quizId)}">Retake this Quiz</a>
+    <div class="history-card-footer">
+      <button class="history-delete-btn" type="button">Delete</button>
+    </div>
   `;
+  
+  const deleteBtn = card.querySelector(".history-delete-btn");
+  deleteBtn.addEventListener("click", () => handleDelete(entry.quizId, card, deleteBtn));
 
   return card;
+}
+
+async function handleDelete(quizId, cardEl, deleteBtn) {
+  const confirmed = window.confirm("Delete this quiz from your history? This can't be undone.");
+  if (!confirmed) return;
+
+  deleteBtn.disabled = true;
+  deleteBtn.textContent = "Deleting...";
+
+  try {
+    const res = await apiFetch(`/api/history/${encodeURIComponent(quizId)}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error || "Could not delete this quiz.");
+    }
+
+    cardEl.remove();
+
+    // Show the empty state if that was the last card.
+    if (historyListEl.children.length === 0) {
+      historyEmpty.hidden = false;
+    }
+  } catch (err) {
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = "Delete";
+    alert(err.message || "Could not delete this quiz. Please try again.");
+  }
 }
 
 async function loadHistory() {

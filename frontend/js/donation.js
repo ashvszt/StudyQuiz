@@ -1,10 +1,4 @@
-// ==========================================
-// donation.js
-// ==========================================
-// Renders a "Buy Me a Coffee"-style button per configured wallet
-// (GCash / Maya). Clicking it pops open the QR code in a modal so
-// the student can scan it with their own app. No account numbers
-// or names are shown — just the button and the QR.
+
 
 const loadingEl = document.getElementById("donation-loading");
 const cardsEl = document.getElementById("donation-cards");

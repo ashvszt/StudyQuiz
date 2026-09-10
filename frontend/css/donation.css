@@ -1,6 +1,3 @@
-/* ==========================================
-   donation.css — Buy Me a Coffee button + QR modal
-   ========================================== */
 
 .donation-intro {
   text-align: center;
@@ -40,7 +37,7 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* ---------- QR Modal ---------- */
+
 .qr-modal-overlay {
   position: fixed;
   inset: 0;

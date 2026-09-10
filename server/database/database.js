@@ -220,12 +220,30 @@ function getQuizHistoryForUser(userId, { excludeQuizId, limit } = {}) {
   });
 }
 
+// Deletes one quiz from a student's history. Scoped to userId so a
+// student can only ever delete their own quiz, never someone else's
+// by guessing an id.
+function deleteQuiz(quizId, userId) {
+  return new Promise((resolve, reject) => {
+    db.run(
+      "DELETE FROM quizzes WHERE id = ? AND user_id = ?",
+      [quizId, userId],
+      function (err) {
+        if (err) return reject(err);
+        // this.changes is how many rows were actually deleted (0 or 1)
+        resolve(this.changes > 0);
+      }
+    );
+  });
+}
+
 module.exports = {
   db,
   getDailyUsage,
   incrementDailyUsage,
   saveQuiz,
   getQuizById,
+  deleteQuiz,
   saveQuizResult,
   getQuizHistoryForUser,
 };

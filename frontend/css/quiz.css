@@ -1,6 +1,4 @@
-/* ==========================================
-   quiz.css — Styles for the quiz gameplay page
-   ========================================== */
+
 
 .quiz-container {
   max-width: 600px;
@@ -96,8 +94,7 @@
   color: var(--color-primary);
 }
 
-/* Correct/incorrect are told apart by fill + pattern, not color,
-   to stay true to the black & white halftone theme. */
+
 .choice-btn.correct {
   border-color: var(--color-success);
   background: var(--color-primary);

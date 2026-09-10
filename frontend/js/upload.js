@@ -1,9 +1,3 @@
-// ==========================================
-// upload.js
-// ==========================================
-// Handles drag-and-drop / file selection, uploading the file to the
-// backend, and then requesting quiz generation.
-
 const dropzone = document.getElementById("dropzone");
 const fileInput = document.getElementById("file-input");
 const chooseFileBtn = document.getElementById("choose-file-btn");
@@ -18,7 +12,7 @@ const usageCounter = document.getElementById("usage-counter");
 
 let selectedFile = null;
 
-// ---------- Load usage counter ----------
+
 async function refreshUsageCounter() {
   try {
     const res = await apiFetch("/api/usage");
@@ -43,7 +37,7 @@ async function refreshUsageCounter() {
   }
 }
 
-// ---------- File selection ----------
+
 chooseFileBtn.addEventListener("click", () => fileInput.click());
 
 fileInput.addEventListener("change", () => {
@@ -52,7 +46,7 @@ fileInput.addEventListener("change", () => {
   }
 });
 
-// Drag and drop events
+
 ["dragenter", "dragover"].forEach((eventName) => {
   dropzone.addEventListener(eventName, (e) => {
     e.preventDefault();
@@ -87,14 +81,14 @@ function handleFileSelected(file) {
 
   if (!allowedTypes.includes(file.type)) {
     showError(
-      "❌ This file type isn't supported. Please upload a PDF, JPG, JPEG, PNG, or WEBP file."
+      " This file type isn't supported. Please upload a PDF, JPG, JPEG, PNG, or WEBP file."
     );
     return;
   }
 
   const maxSizeBytes = 10 * 1024 * 1024;
   if (file.size > maxSizeBytes) {
-    showError("❌ Your file is too large. Maximum file size is 10 MB.");
+    showError(" Your file is too large. Maximum file size is 10 MB.");
     return;
   }
 
@@ -105,7 +99,7 @@ function handleFileSelected(file) {
   selectedFileBox.hidden = false;
 }
 
-// ---------- Generate quiz ----------
+
 generateBtn.addEventListener("click", async () => {
   if (!selectedFile) return;
 
@@ -114,7 +108,7 @@ generateBtn.addEventListener("click", async () => {
   loadingScreen.hidden = false;
 
   try {
-    // Step 1: upload the file
+  
     loadingStep.textContent = "Extracting your notes...";
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -129,7 +123,6 @@ generateBtn.addEventListener("click", async () => {
       throw new Error(uploadData.error || "Upload failed.");
     }
 
-    // Step 2: generate the quiz from the uploaded file
     loadingStep.textContent = "Creating questions...";
     const quizRes = await apiFetch("/api/generate-quiz", {
       method: "POST",
@@ -147,7 +140,7 @@ generateBtn.addEventListener("click", async () => {
 
     loadingStep.textContent = "Preparing your game...";
 
-    // Step 3: go play the quiz
+ 
     window.location.href = `quiz.html?id=${encodeURIComponent(quizData.quizId)}`;
   } catch (err) {
     loadingScreen.hidden = true;

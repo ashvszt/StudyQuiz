@@ -1,14 +1,4 @@
-// ==========================================
-// chatbot.js
-// ==========================================
-// Injects the floating "Libris" chat widget into every page that
-// loads this script. Builds its own DOM (so no HTML needs to be
-// duplicated across pages), and talks to POST /api/chatbot.
-//
-// Other page scripts (quiz.js, main.js, upload.js, result.js) can
-// set window.StudyQuizContext = {...} with live data (score,
-// progress, daily upload count, etc.) so Libris can answer questions
-// like "what's my score?" grounded in real data instead of guessing.
+
 
 const LIBRIS_HISTORY_KEY = "studyquiz_libris_history";
 const LIBRIS_MAX_HISTORY_TURNS = 6;
@@ -120,10 +110,7 @@ async function sendLibrisMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // Build the history to send BEFORE adding this new message to it —
-  // otherwise the current message ends up duplicated (once in
-  // "history", once in "message"), which Gemini rejects with a 400
-  // because it creates two consecutive "user" turns in a row.
+
   const historyForRequest = librisHistory
     .slice(-LIBRIS_MAX_HISTORY_TURNS)
     .map((turn) => ({
@@ -146,8 +133,7 @@ async function sendLibrisMessage() {
       body: JSON.stringify({
         message,
         history: historyForRequest,
-        // Live app data set by whichever page script is active
-        // (score, progress, streak, daily upload count, etc.)
+      
         context: window.StudyQuizContext || {},
       }),
     });

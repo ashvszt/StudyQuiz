@@ -1,9 +1,3 @@
-// ==========================================
-// result.js
-// ==========================================
-// Reads the finished quiz result (saved by quiz.js) and displays
-// the student's final score, accuracy, and a motivational message.
-
 const resultScoreEl = document.getElementById("result-score");
 const resultCorrectEl = document.getElementById("result-correct");
 const resultWrongEl = document.getElementById("result-wrong");
@@ -22,7 +16,7 @@ const MOTIVATIONAL_MESSAGES = {
 function loadResult() {
   const raw = sessionStorage.getItem("studyquiz_result");
   if (!raw) {
-    // No result to show — send the student back home.
+   
     window.location.href = "index.html";
     return;
   }
@@ -31,6 +25,10 @@ function loadResult() {
   const accuracy = result.total > 0
     ? Math.round((result.correct / result.total) * 100)
     : 0;
+    if (accuracy === 100) {
+  launchConfetti();
+}
+    
 
   window.StudyQuizContext = {
     page: "result",

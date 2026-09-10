@@ -17,6 +17,7 @@ const {
   getQuizById,
   saveQuizResult,
   getQuizHistoryForUser,
+  deleteQuiz,
 } = require("../database/database");
 
 const router = express.Router();
@@ -144,6 +145,28 @@ router.get("/history", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not load your quiz history." });
+  }
+});
+
+// DELETE /api/history/:id - remove one quiz from a student's history.
+// Scoped to the requesting user's id, so nobody can delete someone
+// else's quiz by guessing its id.
+router.delete("/history/:id", async (req, res) => {
+  try {
+    const userId = req.headers["x-user-id"];
+    if (!userId) {
+      return res.status(400).json({ error: "Missing user identifier." });
+    }
+
+    const deleted = await deleteQuiz(req.params.id, userId);
+    if (!deleted) {
+      return res.status(404).json({ error: "Quiz not found." });
+    }
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not delete this quiz." });
   }
 });
 

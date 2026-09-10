@@ -1,9 +1,7 @@
-/* ==========================================
-   style.css — Shared styles for all pages
-   ========================================== */
+
 
 :root {
-  /* ---- Halftone black & white palette ---- */
+
   --color-primary: #111111;
   --color-primary-dark: #000000;
   --color-accent: #3a3a3a;
@@ -15,8 +13,7 @@
   --color-error: #111111;
   --color-border: #111111;
   --radius: 14px;
-  /* Hard-edged "sticker" shadow instead of a soft glow — reads as
-     print/halftone rather than a modern soft-UI blur. */
+
   --shadow: 4px 4px 0 rgba(17, 17, 17, 0.9);
   --shadow-hover: 6px 6px 0 rgba(17, 17, 17, 0.95);
   --halftone-dot: rgba(17, 17, 17, 0.16);
@@ -30,7 +27,7 @@ body {
   margin: 0;
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--color-bg);
-  /* Classic halftone dot-screen texture, print-style. */
+
   background-image: radial-gradient(var(--halftone-dot) 1.4px, transparent 1.4px);
   background-size: 14px 14px;
   color: var(--color-text);
@@ -48,7 +45,7 @@ a {
   padding: 0 20px;
 }
 
-/* ---------- Navbar ---------- */
+
 .navbar {
   background: var(--color-card);
   border-bottom: 3px solid var(--color-border);
@@ -87,7 +84,7 @@ a {
   color: var(--color-primary);
 }
 
-/* ---------- Buttons ---------- */
+
 .btn {
   display: inline-block;
   padding: 14px 28px;
@@ -133,7 +130,11 @@ a {
   width: 100%;
 }
 
-/* ---------- Cards ---------- */
+[hidden] {
+  display: none !important;
+}
+
+
 .card {
   background: var(--color-card);
   border: 2px solid var(--color-border);
@@ -142,7 +143,7 @@ a {
   padding: 24px;
 }
 
-/* ---------- Hero (Home page) ---------- */
+
 .hero {
   text-align: center;
   padding: 60px 0 40px;
@@ -160,7 +161,7 @@ a {
   margin: 0 auto 28px;
 }
 
-/* ---------- Feature steps ---------- */
+
 .steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -197,7 +198,7 @@ a {
   display: block;
 }
 
-/* ---------- Usage widget ---------- */
+
 .usage-widget {
   background: var(--color-card);
   border: 2px solid var(--color-border);
@@ -219,7 +220,7 @@ a {
 }
 
 .progress-bar-fill {
-  /* Halftone dot gradient instead of a color gradient. */
+
   background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1px, var(--color-primary) 1px);
   background-size: 6px 6px;
   background-color: var(--color-primary);
@@ -228,7 +229,7 @@ a {
   transition: width 0.3s ease;
 }
 
-/* ---------- Free banner ---------- */
+
 .free-banner {
   text-align: center;
   color: var(--color-text-light);
@@ -236,7 +237,7 @@ a {
   font-weight: 600;
 }
 
-/* ---------- Footer ---------- */
+
 footer {
   text-align: center;
   padding: 32px 20px;
@@ -244,7 +245,7 @@ footer {
   font-size: 0.85rem;
 }
 
-/* ---------- Donation section ---------- */
+
 .donation-section {
   text-align: center;
   padding: 40px 20px;
@@ -274,7 +275,7 @@ footer {
   box-shadow: var(--shadow);
 }
 
-/* ---------- Responsive ---------- */
+
 @media (max-width: 768px) {
   .steps {
     grid-template-columns: repeat(2, 1fr);
