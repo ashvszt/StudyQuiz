@@ -1,10 +1,4 @@
-// ==========================================
-// routes/upload.js
-// ==========================================
-// Handles file uploads (PDF/image) and enforces the daily upload limit.
-// This route ONLY handles receiving + validating the file.
-// Text extraction happens in routes/quiz.js when the quiz is generated,
-// so we don't do unnecessary AI/OCR work if the user never continues.
+
 
 const express = require("express");
 const multer = require("multer");
@@ -32,9 +26,7 @@ if (!fs.existsSync(uploadsFolder)) {
   fs.mkdirSync(uploadsFolder, { recursive: true });
 }
 
-// Configure multer (the library that handles file uploads) to store
-// files with a safe, random filename — never trust the original
-// filename directly, to avoid path traversal or collisions.
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsFolder),
   filename: (req, file, cb) => {
@@ -56,7 +48,6 @@ const upload = multer({
   },
 });
 
-// GET /api/usage - check how many uploads the user has made today
 router.get("/usage", async (req, res) => {
   try {
     const userId = req.headers["x-user-id"];
@@ -76,7 +67,7 @@ router.get("/usage", async (req, res) => {
   }
 });
 
-// POST /api/upload - upload a reviewer file
+
 router.post("/upload", (req, res) => {
   upload.single("file")(req, res, async (err) => {
     try {
@@ -85,7 +76,7 @@ router.post("/upload", (req, res) => {
         return res.status(400).json({ error: "Missing user identifier." });
       }
 
-      // Handle multer errors with friendly messages
+
       if (err) {
         if (err.message === "UNSUPPORTED_FILE_TYPE") {
           return res.status(400).json({
@@ -106,10 +97,10 @@ router.post("/upload", (req, res) => {
         return res.status(400).json({ error: "No file was uploaded." });
       }
 
-      // Enforce the daily limit on the SERVER, never trust the frontend counter.
+
       const used = await getDailyUsage(userId);
       if (used >= DAILY_UPLOAD_LIMIT) {
-        // Clean up the file we just saved since it can't be used today.
+
         fs.unlink(req.file.path, () => {});
         return res.status(429).json({
           error: `You've reached today's ${DAILY_UPLOAD_LIMIT}-upload limit. Come back tomorrow and keep studying! ❤️`,
