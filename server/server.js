@@ -1,8 +1,7 @@
 // ==========================================
 // server.js
 // ==========================================
-// This is the entry point of our backend. It sets up Express,
-// connects our routes, and serves the frontend files.
+
 
 require("dotenv").config();
 
@@ -21,18 +20,14 @@ const PORT = process.env.PORT || 3000;
 
 // ---------- Middleware ----------
 
-// Allow the frontend to talk to this backend.
-// (They're served from the same origin here, but CORS is configured
-// in case the frontend is ever hosted separately.)
+
 app.use(cors());
 
-// Parse incoming JSON request bodies (for routes like saving a score).
 app.use(express.json());
 
-// Basic rate limiting to prevent abuse of the API.
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // limit each IP to 200 requests per window
+  windowMs: 15 * 60 * 1000, 
+  max: 200, 
   message: { error: "Too many requests. Please slow down and try again." },
 });
 app.use("/api/", apiLimiter);
@@ -53,7 +48,6 @@ app.get("/", (req, res) => {
 });
 
 // ---------- Generic error handler ----------
-// Catches anything that slipped past individual route error handling.
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: "Something went wrong on our end." });
