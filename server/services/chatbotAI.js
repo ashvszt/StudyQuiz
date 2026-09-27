@@ -1,11 +1,7 @@
 // ==========================================
 // chatbotAI.js
 // ==========================================
-// Powers "Libris", the floating chatbot mascot for StudyQuiz.
-// Reuses the same free Gemini API used for quiz generation.
-//
-// IMPORTANT: The AI_API_KEY lives only here, on the backend.
-// It is read from environment variables and NEVER sent to the frontend.
+
 
 const AI_API_KEY = process.env.AI_API_KEY;
 const AI_MODEL = process.env.AI_MODEL || "gemini-3.5-flash-lite";
@@ -21,9 +17,7 @@ Your job:
 - StudyQuiz has NO subscriptions, NO premium tier, and NO paid features. Never claim otherwise or invent features that don't exist.
 - If asked something unrelated to studying or the app, or something inappropriate, politely steer the conversation back to studying or using StudyQuiz.`;
 
-// Adds a turn to the contents array, merging it into the previous
-// turn instead of creating two consecutive turns with the same role
-// — Gemini rejects back-to-back same-role turns with a 400.
+
 function pushTurn(contents, role, text) {
   if (!text) return;
   const last = contents[contents.length - 1];
@@ -34,9 +28,7 @@ function pushTurn(contents, role, text) {
   }
 }
 
-// Builds the conversation payload Gemini expects, trimming history
-// so requests stay small and cheap, and guaranteeing strictly
-// alternating user/model turns no matter what the frontend sends.
+
 function buildContents(message, history) {
   const contents = [];
   const trimmedHistory = Array.isArray(history) ? history.slice(-6) : [];
@@ -52,9 +44,6 @@ function buildContents(message, history) {
 
   pushTurn(contents, "user", message);
 
-  // Gemini requires the conversation to start with a "user" turn.
-  // Defensively drop anything before the first user turn, in case
-  // of any leftover/corrupted history.
   while (contents.length && contents[0].role !== "user") {
     contents.shift();
   }
@@ -62,20 +51,17 @@ function buildContents(message, history) {
   return contents;
 }
 
-// Builds the system instruction, folding in live app data (score,
-// progress, upload count, etc.) if the frontend sent any along.
+
 function buildSystemInstruction(context) {
   if (!context || typeof context !== "object" || Object.keys(context).length === 0) {
     return SYSTEM_PROMPT;
   }
 
-  // Keep this small and safe — only plain values, capped size.
+
   const safeContext = JSON.stringify(context).slice(0, 1000);
   return `${SYSTEM_PROMPT}\n\nCurrent app data for this student (only use what's relevant to their question):\n${safeContext}`;
 }
 
-// Sends a message (plus recent chat history + optional live app
-// context) to Gemini and returns Libris's reply as plain text.
 async function askLibris(message, history, context) {
   if (!AI_API_KEY) {
     throw new Error("AI_API_KEY is not configured.");
