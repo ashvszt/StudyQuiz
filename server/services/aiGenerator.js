@@ -1,42 +1,26 @@
-// ==========================================
-// aiGenerator.js
-// ==========================================
-// This service sends the extracted study text to an AI provider
-// and asks it to generate a 20-question quiz in JSON format.
-//
-// This is wired to Google's Gemini API, which has a genuine FREE
-// tier through Google AI Studio — no billing/credit card required
-// to get started. See the README for how to get a free API key.
-//
-// IMPORTANT: The AI_API_KEY lives only here, on the backend.
-// It is read from environment variables and NEVER sent to the frontend.
+
 
 const AI_API_KEY = process.env.AI_API_KEY;
-// Using gemini-2.5-flash-lite by default for higher availability and rate limits.
-// You can override this in your .env file with AI_MODEL=gemini-2.5-flash if needed.
+
 const AI_MODEL = process.env.AI_MODEL || "gemini-3.5-flash-lite";
 const QUESTION_COUNT = 20;
-// Out of the 20 total questions, this many are short-answer
-// "identification" questions — the rest are multiple choice.
+
 const IDENTIFICATION_COUNT = 5;
 const MULTIPLE_CHOICE_COUNT = QUESTION_COUNT - IDENTIFICATION_COUNT;
 
-// Helper to pause execution
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Helper function to handle API requests with retry logic for 503 / transient errors
 async function fetchWithRetry(url, options, maxRetries = 3, baseDelay = 2000) {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const response = await fetch(url, options);
 
-    // Return immediately if successful
     if (response.ok) return response;
 
     const errText = await response.text();
 
-    // Retry only on 503 (Unavailable) or 429 (Rate Limit / High Demand) errors
+
     if ((response.status === 503 || response.status === 429) && attempt < maxRetries) {
-      const delay = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff: 2s, 4s, 8s...
+      const delay = baseDelay * Math.pow(2, attempt - 1); 
       console.warn(
         `[AI] Provider busy (${response.status}). Retrying in ${delay / 1000}s (Attempt ${attempt}/${maxRetries})...`
       );
@@ -44,13 +28,10 @@ async function fetchWithRetry(url, options, maxRetries = 3, baseDelay = 2000) {
       continue;
     }
 
-    // Throw error if max retries reached or for non-retryable errors (400, 401, 404, etc.)
     throw new Error(`AI request failed: ${response.status} ${errText}`);
   }
 }
 
-// The strict instruction we give the AI so it stays grounded in the
-// student's own material and returns data in a format our app can use.
 function buildPrompt(studyText) {
   return `You are an educational quiz generator.
 
@@ -110,7 +91,6 @@ ${studyText}
 """`;
 }
 
-// Calls the Gemini API and returns a validated quiz object.
 async function generateQuiz(studyText) {
   if (!AI_API_KEY) {
     throw new Error(
@@ -121,7 +101,6 @@ async function generateQuiz(studyText) {
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL}:generateContent`;
 
-  // Fetch with retry handling for high traffic spikes
   const response = await fetchWithRetry(url, {
     method: "POST",
     headers: {
@@ -144,12 +123,11 @@ async function generateQuiz(studyText) {
 
   const data = await response.json();
 
-  // Gemini's reply comes back nested under candidates -> content -> parts.
+
   const rawText = (
     data.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("\n") || ""
   ).trim();
 
-  // Strip accidental markdown code fences, just in case.
   const cleaned = rawText.replace(/```json|```/g, "").trim();
 
   let parsed;
@@ -162,18 +140,15 @@ async function generateQuiz(studyText) {
   return shuffleChoices(validateQuiz(parsed));
 }
 
-// Randomly reshuffle each multiple-choice question's choices so the
-// correct answer isn't always stuck in the same position (LLMs tend
-// to cluster correct answers in B/C). Keeps the choice text and
-// explanation intact — only the order + correctAnswer index change.
-// Identification questions have no choices, so they're left alone.
+// Randomly reshuffle each multiple-choice question's.
+
 function shuffleChoices(quiz) {
   quiz.questions.forEach((q) => {
     if (q.type !== "multiple_choice") return;
 
     const correctText = q.choices[q.correctAnswer];
 
-    // Fisher-Yates shuffle
+  
     for (let i = q.choices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [q.choices[i], q.choices[j]] = [q.choices[j], q.choices[i]];
@@ -185,10 +160,7 @@ function shuffleChoices(quiz) {
   return quiz;
 }
 
-// Makes sure the AI's response has the shape we expect before we
-// trust it and save it to the database. Handles both question types:
-// "multiple_choice" (choices + correctAnswer) and "identification"
-// (a typed short answer + acceptable alternate answers).
+// Makes sure the AI's response
 function validateQuiz(quiz) {
   if (!quiz || typeof quiz !== "object") {
     throw new Error("AI response was empty or malformed.");
@@ -205,9 +177,7 @@ function validateQuiz(quiz) {
       throw new Error("A question is missing its explanation.");
     }
 
-    // Infer the type defensively in case the AI omits the field:
-    // if it looks like identification (has an "answer", no choices),
-    // treat it as such — otherwise default to multiple_choice.
+ 
     let type = q.type === "identification" ? "identification" : "multiple_choice";
     if (!q.type && !Array.isArray(q.choices) && typeof q.answer === "string") {
       type = "identification";
@@ -230,7 +200,7 @@ function validateQuiz(quiz) {
       };
     }
 
-    // multiple_choice
+
     if (!Array.isArray(q.choices) || q.choices.length !== 4) {
       throw new Error("A question does not have exactly 4 choices.");
     }
