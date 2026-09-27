@@ -1,15 +1,7 @@
-// ==========================================
-// database.js
-// ==========================================
-// This file sets up our SQLite database and provides
-// simple helper functions to read/write data.
-// SQLite stores everything in one file: server/data/studyquiz.db
-
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 const fs = require("fs");
 
-// Make sure the data folder exists
 const dataFolder = path.join(__dirname, "..", "data");
 if (!fs.existsSync(dataFolder)) {
   fs.mkdirSync(dataFolder, { recursive: true });
@@ -18,9 +10,9 @@ if (!fs.existsSync(dataFolder)) {
 const dbPath = path.join(dataFolder, "studyquiz.db");
 const db = new sqlite3.Database(dbPath);
 
-// Create our tables if they don't already exist
+
 db.serialize(() => {
-  // Quiz table: stores generated quizzes
+
   db.run(`
     CREATE TABLE IF NOT EXISTS quizzes (
       id TEXT PRIMARY KEY,
@@ -37,7 +29,7 @@ db.serialize(() => {
     )
   `);
 
-  // Usage table: tracks how many uploads each user has made today
+ 
   db.run(`
     CREATE TABLE IF NOT EXISTS usage (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,10 +40,7 @@ db.serialize(() => {
     )
   `);
 
-  // ---- Lightweight migration ----
-  // Older copies of this app created the `quizzes` table without the
-  // user_id/correct/wrong/completed_at columns. Add them if missing so
-  // existing local databases don't break when the app is updated.
+
   db.all("PRAGMA table_info(quizzes)", (err, columns) => {
     if (err) return console.error("Could not inspect quizzes table:", err);
     const existing = new Set(columns.map((c) => c.name));
@@ -73,12 +62,12 @@ db.serialize(() => {
 
 // ---------- Usage helper functions ----------
 
-// Returns today's date as a simple string like "2026-09-04"
+
 function getTodayString() {
   return new Date().toISOString().split("T")[0];
 }
 
-// Get how many uploads this user has made today
+
 function getDailyUsage(userId) {
   const today = getTodayString();
   return new Promise((resolve, reject) => {
@@ -93,7 +82,7 @@ function getDailyUsage(userId) {
   });
 }
 
-// Increase this user's upload count for today by 1
+
 function incrementDailyUsage(userId) {
   const today = getTodayString();
   return new Promise((resolve, reject) => {
@@ -113,7 +102,6 @@ function incrementDailyUsage(userId) {
 
 // ---------- Quiz helper functions ----------
 
-// Save a newly generated quiz
 function saveQuiz(quiz) {
   return new Promise((resolve, reject) => {
     db.run(
@@ -140,7 +128,7 @@ function saveQuiz(quiz) {
   });
 }
 
-// Fetch a quiz by its id
+
 function getQuizById(id) {
   return new Promise((resolve, reject) => {
     db.get("SELECT * FROM quizzes WHERE id = ?", [id], (err, row) => {
@@ -159,7 +147,7 @@ function getQuizById(id) {
   });
 }
 
-// Save the result (score + correct/wrong counts) for a finished quiz
+
 function saveQuizResult(id, score, correct, wrong) {
   return new Promise((resolve, reject) => {
     db.run(
@@ -173,10 +161,7 @@ function saveQuizResult(id, score, correct, wrong) {
   });
 }
 
-// Get a student's past completed quizzes (most recent first), so we
-// can show a review history and let Libris reference previous scores.
-// `excludeQuizId` optionally skips a specific quiz (e.g. the one the
-// student is currently playing/just finished).
+
 function getQuizHistoryForUser(userId, { excludeQuizId, limit } = {}) {
   const conditions = ["user_id = ?", "score IS NOT NULL"];
   const params = [userId];
@@ -220,9 +205,7 @@ function getQuizHistoryForUser(userId, { excludeQuizId, limit } = {}) {
   });
 }
 
-// Deletes one quiz from a student's history. Scoped to userId so a
-// student can only ever delete their own quiz, never someone else's
-// by guessing an id.
+
 function deleteQuiz(quizId, userId) {
   return new Promise((resolve, reject) => {
     db.run(
@@ -230,7 +213,7 @@ function deleteQuiz(quizId, userId) {
       [quizId, userId],
       function (err) {
         if (err) return reject(err);
-        // this.changes is how many rows were actually deleted (0 or 1)
+
         resolve(this.changes > 0);
       }
     );
